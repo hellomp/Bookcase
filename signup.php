@@ -1,0 +1,32 @@
+<?php
+require_once('db_connect.php');
+
+if (isset($_POST['submit'])) {
+	$usuario['email'] = $_POST['email'];
+	$usuario['nome'] = $_POST['nome'];
+	$usuario['senha'] = $_POST['senha'];
+
+	mysqli_query($dbc,"INSERT INTO usuario (email,nome,senha) VALUES
+		('{$usuario['email']}','{$usuario['nome']}','{$usuario['senha']}')")
+	or die('Problema ao realizar operação: ' . mysqli_error($dbc));
+	header("Location: index.php");
+}
+?>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Registrar</title>
+</head>
+<body>
+	<h1>Registrar</h1>
+	<form action="signup.php" method="post">
+		<input type="text" name="email" placeholder="Email"/>
+		<input type="text" name="nome" placeholder="nome"/>
+		<input type="text" name="senha" placeholder="senha"/>
+		<input type="submit" name="submit" value="Salvar" />
+	</form>
+</body>
+</html>

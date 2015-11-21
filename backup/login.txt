@@ -1,0 +1,49 @@
+<?php
+require_once('db_conecta.php');
+// Verifica se o cookie id está vazio, o que significa que não tem ninguem logado nesse computador
+if (!isset($_COOKIE['id'])) {
+	if (isset($_POST['submit'])) {
+		//Guarda os dados digitados em duas variaveis
+		$usuario_email = mysqli_real_escape_string($dbc, trim($_POST['email']));
+		$usuario_senha = mysqli_real_escape_string($dbc, trim($_POST['senha']));
+
+		//Verifica se os campos digitados não estão vazios
+		if(!empty($usuario_email)&&!empty($usuario_senha)){
+			//Procura os dados digitados no banco de dados
+			$query = "SELECT id, email FROM usuario WHERE email='$usuario_email' AND senha='$usuario_senha'";
+			$data = mysqli_query($dbc,$query);
+
+			//Verifica se a consulta retornou algum resultado, o que significa que os dados estão corretos
+			if(mysqli_num_rows($data)==1){
+				//Salva as colunas da tabela usuario (id, nome, etc) na variavel $row
+				$row = mysqli_fetch_array($data);
+
+				//Cria os cookies com os dados do usuario (id e email)
+				setcookie('id', $row['id']);
+				setcookie('email', $row['email']);
+				header('Location: index.php');
+			}
+		
+		}
+	
+	}
+}
+?>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Login</title>
+</head>
+<body>
+	<h1>Login</h1>
+		<form action="login.php" method="post">
+			<input type="text" id="email" name="email" placeholder="email" value="<?php if(!empty($usuario_email)) echo  $usuario_email; ?>"/>
+			<input type="text" id="senha" name="senha" placeholder="senha"/>
+
+			<input type="submit" name="submit" value="Salvar" />
+		</form>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<?php
+//Verifica se o cookie id não está vazio, o que significa que tem alguem logado
+if(isset($_COOKIE['id'])){
+	//Edita os cookies id e email colocando um valor vazio e mudando o prazo de validade para uma hora no passado, o que destroi os cookies
+	setcookie('id','',time()-3600);
+	setcookie('email','',time()-3600);
+}
+header('Location: index.php');
+?>

@@ -1,0 +1,10 @@
+
+	$uploaddir = 'capas/';
+	$capa = $uploaddir . basename($_FILES['capa']['name']);
+	if (move_uploaded_file($_FILES['capa']['tmp_name'], $capa)) {
+		mysqli_query($dbc,"INSERT INTO livro (titulo,autor,sinopse,editora,id_categoria,id_subcategoria,pagina,capa,data_registro) values
+			('{$livro['titulo']}','{$livro['autor']}',
+				'{$livro['sinopse']}','{$livro['editora']}','{$livro['id_categoria']}','{$livro['id_subcategoria']}','{$livro['pagina']}','{$capa}', NOW(),'{$livro['data_lancamento']}')")
+		or die('Problema ao realizar operação: ' . mysqli_error($dbc));
+		header("Location: index.php");
+	}
