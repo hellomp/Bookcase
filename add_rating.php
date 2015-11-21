@@ -7,6 +7,9 @@ $query = "SELECT * FROM avaliacao WHERE id_livro='$id_livro' AND id_usuario='{$_
 $data = mysqli_query($dbc,$query)
 or die("Erro. ".mysqli_error($dbc));
 if(mysqli_num_rows($data) > 0){
+	$row = mysqli_fetch_array($data);
+	mysqli_query($dbc, "UPDATE avaliacao SET data = now(),nota = '$nota' WHERE id = '{$row['id']}'")
+	or die("Erro. ".mysqli_error($dbc));
 }else{
 	mysqli_query($dbc, "INSERT INTO avaliacao(id_livro,id_usuario,data,nota) VALUES ('$id_livro', '{$_COOKIE['id']}',now(),'$nota')")
 	or die("Erro. ".mysqli_error($dbc));

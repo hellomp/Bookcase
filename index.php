@@ -5,7 +5,8 @@ $query_ultimos_lidos = mysqli_query($dbc, "SELECT * FROM lido INNER JOIN livro O
 or die (mysqli_error($dbc));
 $query_ultimos_adicionados = mysqli_query($dbc, "SELECT * FROM livro ORDER BY data_registro DESC LIMIT 3")
 or die (mysqli_error($dbc));
-
+$query_melhores = mysqli_query($dbc, "SELECT *,AVG(avaliacao.nota) as nota_media FROM avaliacao INNER JOIN livro ON (avaliacao.id_livro = livro.id) WHERE avaliacao.id_livro = livro.id GROUP BY avaliacao.id_livro ORDER BY nota_media DESC LIMIT 3")
+or die (mysqli_error($dbc));
 ?>
 <!-- Tabs -->
 <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
@@ -133,6 +134,98 @@ or die (mysqli_error($dbc));
     </div>
     <div class="mdl-grid">
       <?php while($livro = mysqli_fetch_array($query_ultimos_adicionados)) { ?>
+      <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col-phone">
+        <a href="show_book.php?id=<?= $livro['id'] ?>" class="card-link"></a>
+        <div class="wrapper">
+          <div class="demo-card mdl-card__title" style="background: url('<?=$livro['capa']?>') center / cover;">
+          </div>
+        </div>
+        <div class="mdl-card__supporting-text">
+         <div class="book-title"><?=$livro['titulo']?></div>
+         <div class="book-subtitle"><?=$livro['autor']?></div>
+       </div>
+       <div class="mdl-card__actions mdl-card--border">
+        <?php
+        $query_rate = mysqli_query($dbc,"SELECT AVG(avaliacao.nota) nota_media
+          FROM avaliacao INNER JOIN livro ON (avaliacao.id_livro = livro.id) WHERE id_livro = '{$livro['id']}'");
+        $avaliacao_media = mysqli_fetch_array($query_rate);
+        if($avaliacao_media['nota_media']==0){
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+        }else if($avaliacao_media['nota_media']>0 & $avaliacao_media['nota_media']<1){
+          echo "<i class='material-icons md-12'>star_half</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+        }else if($avaliacao_media['nota_media']==1){
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+        }else if($avaliacao_media['nota_media']>1 & $avaliacao_media['nota_media']<2){
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star_half</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+        }else if($avaliacao_media['nota_media']==2){
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+        }else if($avaliacao_media['nota_media']>2 & $avaliacao_media['nota_media']<3){
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star_half</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+        }else if($avaliacao_media['nota_media']==3){
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+        }else if($avaliacao_media['nota_media']>3 & $avaliacao_media['nota_media']<4){
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star_half</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+        }else if($avaliacao_media['nota_media']==4){
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star_border</i>";
+        }else if($avaliacao_media['nota_media']>4 & $avaliacao_media['nota_media']<5){
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star_half</i>";
+        }else if($avaliacao_media['nota_media']==5){
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+          echo "<i class='material-icons md-12'>star</i>";
+        } 
+        ?>
+      </div>
+    </div>
+    <?php } ?>
+  </div>
+   <div class="mdl-grid">
+      <h5 class="book-header">Melhores Notas</h5>
+    </div>
+    <div class="mdl-grid">
+      <?php while($livro = mysqli_fetch_array($query_melhores)) { ?>
       <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col-phone">
         <a href="show_book.php?id=<?= $livro['id'] ?>" class="card-link"></a>
         <div class="wrapper">

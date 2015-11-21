@@ -8,19 +8,20 @@ if (isset($_POST['submit'])) {
 	$livro['titulo'] = $_POST['titulo'];
 	$livro['autor'] = $_POST['autor'];
 	$livro['sinopse'] = $_POST['sinopse'];
+	$livro['sinopse'] = preg_replace("\'","",$livro['sinopse']);
 	$livro['editora'] = $_POST['editora'];
 	$livro['id_categoria'] = $_POST['id_categoria'];
 	//$livro['id_subcategoria'] = $_POST['id_subcategoria'];
 	$livro['pagina'] = $_POST['pagina'];
-	$livro['data_lancamento'] = $_POST['data_lancamento'];
+	$livro['ano_lancamento'] = $_POST['ano_lancamento'];
 
 
 	$uploaddir = 'capas/';
 	$capa = $uploaddir . basename($_FILES['capa']['name']);
 	if (move_uploaded_file($_FILES['capa']['tmp_name'], $capa)) {
-		mysqli_query($dbc,"INSERT INTO livro (titulo,autor,sinopse,editora,id_categoria,pagina,capa,data_registro,data_lancamento) values
+		mysqli_query($dbc,"INSERT INTO livro (titulo,autor,sinopse,editora,id_categoria,pagina,capa,data_registro,ano_lancamento) values
 			('{$livro['titulo']}','{$livro['autor']}',
-				'{$livro['sinopse']}','{$livro['editora']}','{$livro['id_categoria']}','{$livro['pagina']}','{$capa}', NOW(),'{$livro['data_lancamento']}')")
+				'{$livro['sinopse']}','{$livro['editora']}','{$livro['id_categoria']}','{$livro['pagina']}','{$capa}', NOW(),'{$livro['ano_lancamento']}')")
 		or die('Problema ao salvar livro: ' . mysqli_error($dbc));
 		$query_autor = mysqli_query($dbc,"SELECT * FROM autor WHERE nome='{$livro['autor']}'")
 		or die('Problema ao consultar autores: '.mysqli_error($dbc));
@@ -399,8 +400,8 @@ if (isset($_POST['submit'])) {
 				</div>
 				<div class="mdl-cell mdl-cell--6-col">
 					<div class="demo-textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="data_lancamento" name="data_lancamento">
-						<label class="mdl-textfield__label" for="data_lancamento">Lançamento</label>
+						<input class="mdl-textfield__input" type="text" id="ano_lancamento" name="ano_lancamento">
+						<label class="mdl-textfield__label" for="ano_lancamento">Ano de Lançamento</label>
 
 					</div>
 				</div>
@@ -420,9 +421,6 @@ if (isset($_POST['submit'])) {
 
 </html>
 <script type="text/javascript">
-jQuery(function($){
-	$("#data_lancamento").mask("9999/99/99",{placeholder:"aaaa/mm/dd"});
-});
 $(document).ready(function() {
 	$.getJSON('retornaAutor.php', function(data){
 		var autores = [];

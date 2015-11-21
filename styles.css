@@ -26,6 +26,9 @@
 .book-title{
 	font-size: 16px;
 	white-space: nowrap;
+}
+.book-subtitle{
+  white-space: nowrap;
 
 }
 .demo-textfield{
@@ -165,4 +168,8 @@ a.card-link{
 .mdl-layout__tab-bar{
   padding-left: 8px;
   width: calc(100% - 8px);
+}
+.action-button{
+  width: 48px;
+  height: 48px;
 }

@@ -120,9 +120,69 @@ $livro = mysqli_fetch_array($query);
 							echo "<i class='material-icons'>star</i>";
 						} 
 						?>
+						<div class='mdl-cell mdl-cell--12-col-phone' style='text-align: center;'>
+					<?php 
+					if(isset($_COOKIE['id'])){
+						$id = $_GET['id'];
+						$query_read = mysqli_query($dbc,"SELECT * FROM lido WHERE id_livro='$id' AND id_usuario='{$_COOKIE['id']}'");
 
-						<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" href="add_read.php?id=<?=$id?>"><i class="material-icons">star</i></a>
+						if(mysqli_num_rows($query_read) > 0){
+							echo "<a class='action-button mdl-button mdl-js-button mdl-button--icon mdl-button--colored' href='add_read.php?id=".$id."'
+							><i class='material-icons' style='font-size: 40px;'>favorite</i></a>";
+						}
+						else{
+							echo "<a class='action-button mdl-button mdl-js-button mdl-button--icon mdl-button--colored' href='add_read.php?id=".$id."'
+							><i class='material-icons' style='font-size: 40px;'>favorite_border</i></a>";
+						}
+					}
+					?>
+					<?php 
+					if(isset($_COOKIE['id'])){
+						$id = $_GET['id'];
+						$query_wish = mysqli_query($dbc,"SELECT * FROM desejo WHERE id_livro='$id' AND id_usuario='{$_COOKIE['id']}'");
+
+						if(mysqli_num_rows($query_wish) > 0){
+							echo "<a class='action-button mdl-button mdl-js-button mdl-button--icon mdl-button--colored' href='add_wish.php?id=".$id."'><i class='material-icons' style='font-size: 40px;'>bookmark</i></a>";
+						}
+						else{
+							echo "<a class='action-button mdl-button mdl-js-button mdl-button--icon mdl-button--colored' href='add_wish.php?id=".$id."'><i class='material-icons' style='font-size: 40px;'>bookmark_border</i></a>";
+						}
+					}
+					?>
+					</div>
 					</div>						
+				</div>
+				<div class="mdl-grid">
+					<div class='mdl-cell mdl-cell--12-col-phone' style='text-align: center;'>
+					<?php 
+					if(isset($_COOKIE['id'])){
+						$id = $_GET['id'];
+						$query_read = mysqli_query($dbc,"SELECT * FROM lido WHERE id_livro='$id' AND id_usuario='{$_COOKIE['id']}'");
+
+						if(mysqli_num_rows($query_read) > 0){
+							echo "<a class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored' href='add_read.php?id=".$id."'
+							><i class='material-icons' style='font-size: 28px;'>favorite</i></a>";
+						}
+						else{
+							echo "<a class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored' href='add_read.php?id=".$id."'
+							><i class='material-icons' style='font-size: 28px;'>favorite_border</i></a>";
+						}
+					}
+					?>
+					<?php 
+					if(isset($_COOKIE['id'])){
+						$id = $_GET['id'];
+						$query_wish = mysqli_query($dbc,"SELECT * FROM desejo WHERE id_livro='$id' AND id_usuario='{$_COOKIE['id']}'");
+
+						if(mysqli_num_rows($query_wish) > 0){
+							echo "<a class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored' href='add_wish.php?id=".$id."'><i class='material-icons' style='font-size: 28px;'>bookmark</i></a>";
+						}
+						else{
+							echo "<a class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored' href='add_wish.php?id=".$id."'><i class='material-icons' style='font-size: 28px;'>bookmark_border</i></a>";
+						}
+					}
+					?>
+					</div>
 				</div>
 				<div class="mdl-grid">
 					<button class="mdl-button mdl-js-button mdl-button--primary" id="show-sinopse" >
@@ -138,7 +198,9 @@ $livro = mysqli_fetch_array($query);
 						$id = $_GET['id'];
 						$query_rating = mysqli_query($dbc,"SELECT * FROM avaliacao WHERE id_livro='$id' AND id_usuario='{$_COOKIE['id']}'");
 						echo "<div class='mdl-cell mdl-cell--12-col-phone' style='text-align: center;'>";
-						echo "<h5>Avaliar</h5>";
+						echo "<h6 style='margin-bottom: 0px;'>Avaliar</h6>";
+						echo "</div>";
+						echo "<div class='mdl-cell mdl-cell--12-col-phone' style='text-align: center;'>";
 						if(mysqli_num_rows($query_rating) > 0){
 							$avaliacao = mysqli_fetch_array($query_rating);
 							echo "<a class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored' href='add_rating.php?id=".$id."&nota=1'><i class='material-icons'>star</i></a>";
@@ -184,9 +246,9 @@ $livro = mysqli_fetch_array($query);
 
 </html>
 <script type="text/javascript">
-$(document).ready(function() {
+	$(document).ready(function() {
 	$('#show-sinopse').click(function() {
-		$('#sinopse').slideToggle("fast");
-	});
+	$('#sinopse').slideToggle("fast");
+});
 });
 </script>
