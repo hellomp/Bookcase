@@ -42,8 +42,7 @@ if (isset($_POST['submit'])) {
 	<link rel="stylesheet" href="bower_components/jquery-ui/jquery-ui.css">
 
 	<!-- Material Design Lite -->
-	<link rel="stylesheet" href="bower_components/material-design-lite/material.min.css">
-	<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.blue_grey-red.min.css" />
+	<link rel="stylesheet" href="bower_components/material-design-lite/material.blue_grey-red.min.css" />
 	<link rel="stylesheet" href="styles.css">
 	<!-- Material Design fonts -->
 	<link rel="stylesheet" href="icon.css?family=Material+Icons">

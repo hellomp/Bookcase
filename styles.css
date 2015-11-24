@@ -173,3 +173,75 @@ a.card-link{
   width: 48px;
   height: 48px;
 }
+.action-icon{
+  top: 45% !important;
+  left: 35% !important;
+  line-height: 32px !important;
+  width: 32px !important;
+}
+.separator{
+  height: 1px;
+  width: 330px;
+  background-color: #dcdcdc;
+  margin-left: 16px;
+
+}
+
+.grey-color{
+  color: rgba(0,0,0,.54);
+}
+.red-color { 
+  color: rgba(239,83,80,255); 
+}
+.orange-color { 
+  color: rgba(245,168,22,255); 
+}
+.green-color { 
+  color: rgba(67,160,71,255); 
+}
+.blue-color { 
+  color: rgba(38,198,218,255); 
+}
+.no-margin{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.menu-title-drawer.mdl-layout-title{
+  border-right: none;
+  position: relative;
+  background: #6ab344;
+  height: 160px;
+
+}
+.menu-title{
+  position: absolute;
+  bottom: 28px;
+}
+.menu-subtitle{
+  position: absolute;
+  bottom: 0px;
+}
+.mdl-navigation__link {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: 500;
+}
+.mdl-navigation__link .material-icons {
+  font-size: 24px;
+  margin-right: 32px;
+}
+.mdl-menu__item{
+  height: 36px;
+  line-height: 36px;
+}

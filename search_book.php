@@ -1,5 +1,9 @@
+<!doctype html>
 <?php
 include_once('db_connect.php');
+if(!isset($_COOKIE['id'])){
+  header("Location: login.php");
+}
 $output = "";
 if(isset($_POST['submit'])){
 	$search = $_POST['search'];
@@ -42,8 +46,7 @@ if(isset($_POST['submit'])){
 	<meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Material Design Lite -->
-	<link rel="stylesheet" href="bower_components/material-design-lite/material.min.css">
-	<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.blue_grey-red.min.css" />
+	<link rel="stylesheet" href="bower_components/material-design-lite/material.blue_grey-red.min.css" />
 	<link rel="stylesheet" href="styles.css">
 	<!-- Material Design fonts -->
 	<link rel="stylesheet" href="icon.css?family=Material+Icons">
@@ -51,7 +54,7 @@ if(isset($_POST['submit'])){
 	<script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
 	<title>Pesquisa</title>
 </head>
-<body class="mdl-demo">
+<body class="mdl-demo mdl-color--grey-100">
 	
 	<!-- Always shows a header, even in smaller screens. -->
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
